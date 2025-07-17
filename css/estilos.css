@@ -229,7 +229,6 @@ footer {
 }
 
 /* DROPDOWN / SUBMENÚ */
-/* DROPDOWN / SUBMENÚ */
 .dropdown {
   position: relative;
 }
@@ -303,6 +302,9 @@ footer {
   margin: auto;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 128, 0, 0.1);
+
+  /* AGREGADO para responsividad */
+  overflow-x: auto; /* permite scroll horizontal en móvil */
 }
 
 .tabla-sucursales h2 {
@@ -317,6 +319,8 @@ footer {
   border-collapse: collapse;
   font-size: 0.95rem;
   background-color: white;
+
+  min-width: 600px; /* para que no se aplaste en móvil */
 }
 
 .tabla-sucursales th,
@@ -365,4 +369,16 @@ footer {
   width: 20px;
   vertical-align: middle;
   margin-right: 5px;
+}
+
+/* AJUSTES RESPONSIVE PARA TABLA EN MÓVIL */
+@media (max-width: 600px) {
+  .tabla-sucursales table {
+    font-size: 0.8rem;
+  }
+
+  .tabla-sucursales th,
+  .tabla-sucursales td {
+    padding: 6px 5px;
+  }
 }
