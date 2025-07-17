@@ -20,14 +20,19 @@ body {
 
 /* NAVBAR */
 .navbar {
-  background-color: #2e7d32;
-  color: #0f0404;
-  padding: 0,5rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #1B5E20;
+  color: white;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 
 .logo-titulo {
   display: flex;
@@ -61,7 +66,7 @@ body {
 
 /* HERO */
 .hero {
-  background: linear-gradient(to right, #104a10, #66bb6a);
+  background: linear-gradient(to right, #0b8421, #333f36);
   color: white;
   padding: 1rem;
   text-align: center;
@@ -381,4 +386,8 @@ footer {
   .tabla-sucursales td {
     padding: 6px 5px;
   }
+}
+
+* {
+  transition: all 0.3s ease-in-out;
 }
