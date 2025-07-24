@@ -259,3 +259,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 }); // Cierre de document.addEventListener("DOMContentLoaded" ...
+
+// --- LÓGICA PARA EL SLIDER DE PROMOCIONES EN EL BANNER ---
+document.addEventListener('DOMContentLoaded', () => {
+    const promoSlides = document.querySelectorAll('.promo-slide');
+    let currentPromoIndex = 0;
+    let promoInterval;
+
+    function showPromoSlide(index) {
+        // Oculta todos los slides
+        promoSlides.forEach((slide) => {
+            slide.classList.remove('active');
+        });
+        // Muestra el slide actual
+        promoSlides[index].classList.add('active');
+    }
+
+    function nextPromoSlide() {
+        currentPromoIndex = (currentPromoIndex + 1) % promoSlides.length;
+        showPromoSlide(currentPromoIndex);
+    }
+
+    function startPromoSlider() {
+        // Asegurarse de que hay al menos un slide
+        if (promoSlides.length > 0) {
+            // Mostrar el primer slide al cargar
+            showPromoSlide(currentPromoIndex);
+            // Iniciar la rotación automática cada 5 segundos (5000ms)
+            promoInterval = setInterval(nextPromoSlide, 2000); 
+        }
+    }
+
+    // Iniciar el slider cuando la página esté completamente cargada
+    startPromoSlider();
+});
