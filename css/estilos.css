@@ -59,6 +59,8 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
+    font-size: 0.70rem; /* o probá con 0.9rem si querés más chico */
+
 }
 
 .menu li a:hover {
