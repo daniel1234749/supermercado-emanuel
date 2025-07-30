@@ -6,7 +6,13 @@ const productos = [
   { id: 105, nombre: "Fideos Don Vicente 500g", precio: 950, imagen: "img/donvicente.jpg" },
   { id: 106, nombre: "Café La Morenita x 250gr", precio: 1850, imagen: "img/morenita.jpg" },
   { id: 107, nombre: "Leche La Serenísima x 1L", precio: 1599, imagen: "img/laserenisima.png" },
-  { id: 108, nombre: "Jabón en polvo Ala 800g", precio: 2599, imagen: "img/ala.jpg" }
+  { id: 108, nombre: "Jabón en polvo Ala 800g", precio: 2599, imagen: "img/ala.jpg" },
+  { id: 109, nombre: "Rollo de cocina Celestial x 3 unid.", precio: 999 , imagen: "img/celestial.jpeg" },
+  { id: 110, nombre: "Jabon en pan Seiseme x 300 gr", precio: 999 , imagen: "img/seiseme.jpeg" },
+  { id: 111, nombre: "Lustramuebles Blem x 360cc", precio: 3999 , imagen: "img/blem.jpeg" },
+  { id: 112, nombre: "Detergente Magistral x 500 cc", precio: 2899 , imagen: "img/magistral.jpeg" },
+  { id: 113, nombre: "Suavizante Vivere clasico x 900cc", precio: 2099 , imagen: "img/vivere.jpeg" },
+  { id: 114, nombre: "Perfume para ropa Algabo dp x 250gr", precio: 1499, imagen: "img/algabo.jpeg" }
 ];
 
 let carrito = [];

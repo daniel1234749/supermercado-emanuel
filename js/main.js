@@ -13,10 +13,10 @@ const productos = [
     { id: 8, nombre: "Leche en polvo Purisima est x 800gr", precio: 8299, imagen: "img/purisima.jpg" },
     { id: 9, nombre: "Pure de papas Maggi x 125gr", precio: 1099, imagen: "img/maggi.jpg" },
     { id: 10, nombre: "Mermelada Marolio x 454gr", precio: 1499, imagen: "img/merm-marolio.jpg" },
-    { id: 11, nombre: "Galletitas Providencia x 3 unid", precio: 929, imagen: "img/galleta.jpg" },
-    { id: 12, nombre: "Galletitas Providencia x 3 unid", precio: 929, imagen: "img/galleta.jpg" },
-    { id: 13, nombre: "Galletitas Providencia x 3 unid", precio: 929, imagen: "img/galleta.jpg" },
-    { id: 14, nombre: "Galletitas Providencia x 3 unid", precio: 929, imagen: "img/galleta.jpg" }
+    { id: 11, nombre: "Pure de tomate La Huerta x 530gr", precio: 699, imagen: "img/huerta.jpeg" },
+    { id: 12, nombre: "Caballa Marolio x 380gr", precio: 2199, imagen: "img/caballa_marolio.jpeg" },
+    { id: 13, nombre: "Mayonesa Hellmanns x 475gr", precio: 2099, imagen: "img/hellmans.jpeg" },
+    { id: 14, nombre: "Polenta Prestopronta x 500gr", precio: 999, imagen: "img/prestopronta.jpeg" }
 ];
 
 let carrito = [];
