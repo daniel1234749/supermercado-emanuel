@@ -1,82 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catálogo Buenos Aires - Supermercado Emanuel</title>
-  <link rel="stylesheet" href="css/estilos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Catálogo Buenos Aires - Supermercado Emanuel</title>
+    <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
-  
+    
     <nav class="navbar">
-      <div class="logo-titulo">
-        <img src="img/fondo5.png" alt="Logo Supermercado Emanuel" class="logo" />
-        <h3>Supermercados Mayorista</h3>
-        <h1></h1>
-      </div>
-      <ul class="menu">
-        <li><a href="index.html">Inicio</a></li>
-        <li class="dropdown">
-          <a href="#">Catálogo ▾</a>
-          <ul class="submenu">
-            <li><a href="productos-bsas.html">Catálogo Buenos Aires</a></li>
-            <li><a href="productos.html">Catálogo Tucumán</a></li>
-          </ul>
-        </li>
-       <li class="dropdown">
-           <a href="#">Ofertas ▾</a>
-          <ul class="submenu">
-            <li><a href="docs/bsas.pdf" target="_blank" >📄 Folleto Buenos Aires</a></li>
-            <li><a href="docs/folleto-tucuman.pdf" target="_blank" >📄 Folleto Tucumán</a></li>
-          </ul>
-          </li>
-        
-        <li><a href="proveedor.html">Proveedores</a></li>
-        <li class="dropdown">
-          <a href="#">Quiénes Somos ▾</a>
-          <ul class="submenu">
-            <li><a href="quienes-somos.html#mision">Misión</a></li>
-            <li><a href="quienes-somos.html#vision">Visión</a></li>
-            <li><a href="quienes-somos.html#historia">Nuestra Historia</a></li>
-          </ul>
-        </li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="sucursales.html">Sucursales</a></li>
-      </ul>
+        <div class="logo-titulo">
+            <img src="img/fondo5.png" alt="Logo Supermercado Emanuel" class="logo" />
+            <h3>Supermercados Mayorista</h3>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#">Catálogo ▾</a>
+                <ul class="submenu">
+                    <li><a href="productos-bsas.html">Catálogo Buenos Aires</a></li>
+                    <li><a href="productos.html">Catálogo Tucumán</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Ofertas ▾</a>
+                <ul class="submenu">
+                    <li><a href="docs/bsas.pdf" target="_blank" >📄 Folleto Buenos Aires</a></li>
+                    <li><a href="docs/folleto-tucuman.pdf" target="_blank" >📄 Folleto Tucumán</a></li>
+                </ul>
+            </li>
+            <li><a href="proveedor.html">Proveedores</a></li>
+            <li class="dropdown">
+                <a href="#">Quiénes Somos ▾</a>
+                <ul class="submenu">
+                    <li><a href="quienes-somos.html#mision">Misión</a></li>
+                    <li><a href="quienes-somos.html#vision">Visión</a></li>
+                    <li><a href="quienes-somos.html#historia">Nuestra Historia</a></li>
+                </ul>
+            </li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="sucursales.html">Sucursales</a></li>
+        </ul>
+        <button id="abrir-carrito" class="btn-carrito">
+            🛒 Carrito <span id="contador-carrito" class="contador-carrito">0</span>
+        </button>
     </nav>
-  
 
-  <main class="contenedor-principal">
-    <section class="catalogo">
-      <h2>Catálogo de productos - Buenos Aires</h2>
-      <div id="lista-productos" class="grid-productos"></div>
-    </section>
+    <div id="modal-carrito" class="modal">
+        <div class="modal-content">
+            <span id="cerrar-carrito" class="cerrar">&times;</span>
+            <h3>🛒 Carrito de compras</h3>
+            <ul id="items-carrito"></ul>
+            <p><strong>Total:</strong> $<span id="total">0</span></p>
+            <button id="vaciar-carrito" style="display:none;">Vaciar carrito</button>
+            <button id="enviar-whatsapp">Enviar pedido por WhatsApp</button>
+        </div>
+    </div>
 
-    <aside class="carrito">
-      <h3>🛒 Carrito de compras</h3>
-      <ul id="items-carrito"></ul>
-      <p><strong>Total:</strong> $<span id="total">0</span></p>
-      <button id="vaciar-carrito" style="display:none;">Vaciar carrito</button>
-      <button id="enviar-whatsapp">Enviar pedido por WhatsApp</button>
-    </aside>
+    <main class="contenedor-principal">
+        <section class="catalogo">
+            <h2>Catálogo de productos - Buenos Aires</h2>
+            <div id="lista-productos" class="grid-productos"></div>
+        </section>
 
-    <section class="formulario">
-      <h2>Datos para tu pedido</h2>
-      <form id="form-pedido">
-        <input type="text" id="nombre" placeholder="Tu nombre" required />
-        <input type="tel" id="telefono" placeholder="Tu teléfono" required />
-        <button type="submit">Enviar pedido por WhatsApp</button>
-      </form>
-    </section>
-  </main>
+       
+    </main>
 
-  <footer>
-    <p>&copy; 2025 Supermercado Mayorista Emanuel</p>
-  </footer>
+    <footer>
+        <p>&copy; 2025 Supermercado Mayorista Emanuel</p>
+    </footer>
 
- 
- <script src="js/main-bsas.js"></script>
-
+    <script src="js/main-bsas.js"></script>
 
 </body>
 </html>

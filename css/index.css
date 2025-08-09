@@ -1,0 +1,871 @@
+/* Limpieza básica */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4fff4; 
+    color: #140421; 
+    padding-bottom: 60px; 
+}
+
+/* LOGO */
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #1B5E20; /* Verde oscuro */
+    color: white;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logo-titulo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-titulo h1 {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.80rem; /* o probá con 0.9rem si querés más chico */
+
+}
+
+.menu li a:hover {
+    text-decoration: underline;
+    color: #a5d6a7; /* Verde claro al pasar el mouse */
+}
+
+/* DROPDOWN / SUBMENÚ */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #2e7d32; /* fondo verde navbar */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 6px;
+    z-index: 1000;
+    min-width: 180px;
+    border: 1px solid #1b5e20;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submenu li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2e7d32;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.submenu li a:hover {
+    background-color: #388e3c; /* Verde ligeramente más claro al pasar el mouse */
+    color: #ffffff;
+}
+
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(to right, #0b8421, #333f36); /* Gradiente de verde a gris oscuro */
+    color: white;
+    padding: 0.8rem; 
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-content h2 {
+    font-size: 2.2rem; 
+    margin-bottom: 8px; 
+}
+
+.hero-content p {
+    font-size: 1.1rem; 
+}
+
+
+/* --- ESTILO PARA EL BANNER DE PROMOCIONES ROTATIVAS (SLIDER) --- */
+.promo-banner {
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 3px solid #d0d0d0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    height: 130px;
+    margin-top: 70px; /* Ajusta este valor si tu navbar es más alta o más baja */
+}
+
+.promo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.05),
+        rgba(255,255,255,0.05) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.promo-banner .promo-slides-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.promo-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Velocidad de la transición */
+    text-decoration: none;
+    color: inherit;
+    z-index: 2;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
+
+.promo-slide .banner-img {
+    max-width: 200px; /* Mantener este para escritorio, se ajustará en responsive */
+    height: auto;
+    border-radius: 12px;
+    border: 4px solid #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+}
+
+.promo-slide p {
+    font-size: 1.8em; /* Mantener este para escritorio, se ajustará en responsive */
+    font-weight: bold;
+    color: #8B0000; /* Color vino/bordó para el texto de la promo */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    padding: 0 20px;
+    line-height: 1.3;
+}
+
+/* CARRUSEL PRINCIPAL (SLIDER DE IMAGENES CENTRAL) */
+.carrusel-container {
+    position: relative;
+    max-width: 90%; /* Ajusta el ancho máximo del contenedor del carrusel */
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    height: 350px; /* Altura fija para el contenedor del carrusel */
+}
+
+.carrusel {
+    display: flex;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 20px;
+    height: 100%;
+    align-items: center;
+}
+
+/* Ocultar la barra de scroll nativa */
+.carrusel::-webkit-scrollbar {
+    display: none;
+}
+.carrusel {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.slide {
+    flex-shrink: 0;
+    width: calc(33.333% - 10px); /* Aproximadamente 1/3 del ancho del contenedor */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    scroll-snap-align: start;
+    border: 1px solid #ddd;
+    cursor: pointer; /* Para la funcionalidad del lightbox */
+}
+
+.btn-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-carrusel:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+/* ==============================================================================
+    ESTILOS PARA EL NUEVO BANNER ESTÁTICO DE MEDIOS DE PAGO
+    ============================================================================== */
+.payment-methods-banner {
+    background: linear-gradient(90deg, #e0f2f7 0%, #bbdefb 100%); /* Fondo azul claro y suave */
+    padding: 25px 0;
+    text-align: center;
+    border-top: 3px solid #90caf9;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* Sombra hacia arriba */
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.payment-methods-banner .payment-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.payment-logos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.payment-logo {
+    width: 80px;   /* Ancho fijo para todos los logos */
+    height: 50px;   /* Altura fija para todos los logos */
+    object-fit: contain; /* Esencial para que se ajusten sin distorsionarse */
+    background-color: #ffffff; /* Fondo blanco para uniformidad si tienen transparencias */
+    padding: 5px; /* Pequeño padding interno para que no toquen el borde */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-logo:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.payment-methods-banner p {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #1a237e; /* Azul oscuro para el texto */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+
+/* SUCURSALES PAGE STYLES */
+.sucursales {
+    padding: 2rem;
+    background-color: #e8f5e9;
+}
+
+.tabla-sucursales {
+    padding: 2rem;
+    background-color: #e8f5e9;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 128, 0, 0.1);
+    overflow-x: auto; /* permite scroll horizontal en móvil */
+}
+
+.tabla-sucursales h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2e7d32;
+    font-size: 1.8rem;
+}
+
+.tabla-sucursales table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: white;
+    min-width: 600px; /* para que no se aplaste en móvil */
+}
+
+.tabla-sucursales th,
+.tabla-sucursales td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.tabla-sucursales th {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.tabla-sucursales tr:nth-child(even) {
+    background-color: #f1f8e9;
+}
+
+.tabla-sucursales a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.tabla-sucursales a:hover {
+    text-decoration: underline;
+    color: #1b5e20;
+}
+
+.icono-mapa {
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+/* FORMULARIO (CONTACTO / PROVEEDORES) */
+.formulario {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #e8f5e9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 128, 0, 0.1);
+}
+
+.formulario h2,
+.formulario p {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.formulario form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formulario input,
+.formulario textarea {
+    padding: 0.75rem;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.formulario textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.formulario button {
+    background-color: #28a745; /* Verde estándar de éxito */
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.formulario button:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}
+
+
+/* CATÁLOGO / PRODUCTOS */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.producto {
+    background-color: #ffffff;
+    border: 1px solid #c3e6cb;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 128, 0, 0.1);
+    transition: transform 0.2s ease;
+    min-height: 360px; /* Asegura una altura mínima para la cuadrícula */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.producto:hover {
+    transform: scale(1.03);
+}
+
+.producto img {
+    width: 100%;
+    height: 150px; /* Altura fija para las imágenes de producto */
+    object-fit: contain; /* Ajusta la imagen sin recortarla */
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.producto h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    min-height: 48px; /* Altura mínima para títulos de 2 líneas */
+}
+
+.producto p {
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.producto button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.producto button:hover {
+    background-color: #218838;
+}
+
+/* CARRITO */
+.carrito {
+    padding: 2rem;
+    background-color: #dcedc8;
+    border-top: 2px solid #81c784;
+}
+
+/* QUIENES SOMOS PAGE STYLES */
+.quienes-somos {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 2rem 1rem;
+    background-color: #e8f5e9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 128, 0, 0.1);
+}
+
+.quienes-somos section {
+    margin-bottom: 40px;
+}
+
+.quienes-somos h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #2e7d32;
+    padding-bottom: 5px;
+    color: #2e7d32;
+}
+
+.quienes-somos p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #140421;
+}
+
+/* TITULOS CENTRADOS (general) */
+h2 {
+    text-align: center;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #2e7d32; /* Verde oscuro del footer */
+    color: white;
+    position: relative; /* Cambiado de fixed a relative si el body tiene padding-bottom */
+    bottom: 0;
+    width: 100%;
+}
+
+/* ==============================================================================
+    ESTILOS PARA LA MODAL / LIGHTBOX
+    ============================================================================== */
+.lightbox {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita el scroll si la imagen es muy grande */
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro semitransparente */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Animación de aparición para la modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox.active {
+    display: flex; /* Muestra la modal cuando está activa */
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%; /* Ancho máximo de la imagen dentro de la modal */
+    max-height: 90%; /* Altura máxima de la imagen dentro de la modal */
+    object-fit: contain; /* Ajusta la imagen sin recortarla */
+    animation: zoomIn 0.3s ease-out; /* Animación de zoom para la imagen */
+    border-radius: 8px; /* Bordes redondeados para la imagen ampliada */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4); /* Sombra brillante verde */
+}
+
+/* Animación de zoom para la imagen */
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Botón de cerrar */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ANIMACIÓN GENERAL (para elementos con clase 'animado') */
+@keyframes zoomBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.animado {
+    display: inline-block;
+    animation: zoomBounce 2.5s ease-in-out infinite;
+}
+
+/* ==============================================================================
+    RESPONSIVE DESIGN - MEDIA QUERIES
+    ============================================================================== */
+
+/* Ajustes responsivos para la NAVBAR */
+@media (max-width: 768px) { /* Se activa antes para la navbar */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .logo-titulo {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem; /* Espacio debajo del logo en móviles */
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%; /* Ocupa todo el ancho */
+    }
+
+    .menu li {
+        width: 100%; /* Cada ítem ocupa todo el ancho para un mejor toque */
+    }
+
+    .menu li a {
+        padding: 8px 0; /* Padding vertical para los enlaces */
+        background-color: rgba(46, 125, 50, 0.9); /* Fondo para cada elemento del menú en móvil */
+        border-radius: 4px;
+    }
+
+    .dropdown .submenu {
+        position: static; /* El submenú se comporta como parte del flujo */
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #388e3c; /* Borde para separar del padre */
+        border-radius: 0;
+    }
+
+    .submenu li a {
+        padding-left: 30px; /* Indentación para elementos de submenú */
+        background-color: rgba(56, 142, 60, 0.95); /* Fondo ligeramente diferente para submenú */
+    }
+}
+
+
+/* Ajustes responsivos para el HERO */
+@media (max-width: 768px) {
+    .hero-content h2 {
+        font-size: 1.8rem; /* MODIFICADO: REDUCIDO */
+    }
+    .hero-content p {
+        font-size: 0.9em; /* MODIFICADO: REDUCIDO */
+    }
+    .hero {
+        padding: 0.6rem; /* MODIFICADO: REDUCIDO */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h2 {
+        font-size: 1.5rem; /* MODIFICADO: REDUCIDO */
+    }
+    .hero-content p {
+        font-size: 0.8em; /* MODIFICADO: REDUCIDO */
+    }
+    .hero {
+        padding: 0.5rem; /* MODIFICADO: REDUCIDO */
+    }
+}
+
+
+/* Responsive para el banner de promociones (SLIDER) */
+@media (max-width: 768px) {
+    .promo-banner {
+        padding: 10px 0; /* MODIFICADO: REDUCIDO */
+        margin-bottom: 25px;
+        height: 110px; /* MODIFICADO: REDUCIDO */
+    }
+    .promo-slide {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center; /* Centra el contenido si se apila */
+    }
+    .promo-slide p {
+        font-size: 1.2em; /* MODIFICADO: AJUSTADO */
+        padding: 0 15px;
+        text-align: center;
+    }
+    .promo-slide .banner-img {
+        max-width: 100px; /* MODIFICADO: AÚN MÁS PEQUEÑO PARA TABLET */
+        max-height: 80px; /* AGREGADO: LIMITAR LA ALTURA TAMBIÉN */
+        object-fit: contain; /* AGREGADO: ASEGURAR QUE SE AJUSTE DENTRO */
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-banner {
+        height: 90px; /* MODIFICADO: REDUCIDO */
+        padding: 8px 0;
+    }
+    .promo-slide p {
+        font-size: 0.9em; /* MODIFICADO: AJUSTADO */
+    }
+    .promo-slide .banner-img {
+        max-width: 70px; /* MODIFICADO: AÚN MÁS PEQUEÑO PARA MÓVIL */
+        max-height: 60px; /* AGREGADO: LIMITAR LA ALTURA TAMBIÉN */
+        object-fit: contain; /* AGREGADO: ASEGURAR QUE SE AJUSTE DENTRO */
+    }
+}
+
+
+/* Ajustes responsivos para las imágenes del CARRUSEL PRINCIPAL */
+@media (max-width: 992px) { /* Por ejemplo, para tablets grandes */
+    .slide {
+        width: calc(50% - 10px); /* Mostrar 2 fotos por pantalla */
+    }
+}
+
+@media (max-width: 768px) { /* Para tablets y móviles */
+    .slide {
+        width: calc(100% - 10px); /* Mostrar 1 foto por pantalla */
+    }
+}
+
+
+/* Responsive para el banner de medios de pago (ESTÁTICO) */
+@media (max-width: 768px) {
+    .payment-methods-banner {
+        padding: 20px 0;
+        margin-top: 30px;
+    }
+    .payment-logos-container {
+        gap: 15px;
+    }
+    .payment-logo {
+        width: 65px; /* MODIFICADO: Un poco más pequeños en tablet */
+        height: 40px; /* MODIFICADO */
+    }
+    .payment-methods-banner p {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-logos-container {
+        gap: 10px;
+    }
+    .payment-logo {
+        width: 50px; /* MODIFICADO: Aún más pequeños en móvil */
+        height: 30px; /* MODIFICADO */
+    }
+    .payment-methods-banner p {
+        font-size: 1.1em;
+    }
+}
+
+
+/* AJUSTES RESPONSIVE PARA TABLA DE SUCURSALES EN MÓVIL */
+@media (max-width: 600px) {
+    .tabla-sucursales table {
+        font-size: 0.8rem;
+    }
+
+    .tabla-sucursales th,
+    .tabla-sucursales td {
+        padding: 6px 5px;
+    }
+}
+
+/* Ajustes responsivos para el GRID DE PRODUCTOS */
+@media (max-width: 768px) {
+    .grid-productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .producto {
+        min-height: 320px;
+    }
+    .producto h4 {
+        font-size: 1em;
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-productos {
+        grid-template-columns: 1fr; /* Una columna en móviles muy pequeños */
+        padding: 0.5rem;
+    }
+    .producto {
+        min-height: auto; /* Permite que la altura se ajuste al contenido */
+    }
+}
+
+.mision-vision {
+  background-color: #f1f8f4;
+  padding: 40px 20px;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.mision-vision h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+  color: #056835;
+  border-bottom: 2px solid #056835;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.mision-vision p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #333;
+}

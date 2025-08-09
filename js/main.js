@@ -21,9 +21,9 @@ const productos = [
 
 let carrito = [];
 
+// Mostrar productos en la página
 function mostrarProductos() {
     const contenedor = document.querySelector("#lista-productos");
-    // Solo si el contenedor existe en la página actual (ej. productos.html o productos-bsas.html)
     if (contenedor) {
         productos.forEach(producto => {
             const div = document.createElement("div");
@@ -39,39 +39,70 @@ function mostrarProductos() {
     }
 }
 
+// Actualizar carrito y mostrar en modal
 function actualizarCarrito() {
     const items = document.querySelector("#items-carrito");
     const totalElement = document.querySelector("#total");
     const btnVaciar = document.querySelector("#vaciar-carrito");
+    const contadorElement = document.querySelector("#contador-carrito"); // AGREGADO
 
-    // Solo si los elementos del carrito existen en la página actual
     if (items && totalElement && btnVaciar) {
         items.innerHTML = "";
         let total = 0;
+        let totalItems = 0; // AGREGADO
 
         carrito.forEach(item => {
             const li = document.createElement("li");
             li.innerHTML = `
-                ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}
+                ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)}
                 <button class="btn-eliminar" data-id="${item.id}">❌</button>
             `;
             items.appendChild(li);
             total += item.precio * item.cantidad;
+            totalItems += item.cantidad; // AGREGADO
         });
 
-        totalElement.textContent = total.toFixed(2); // Asegura dos decimales para el total
-
-        // Mostrar botón vaciar si hay productos
+        totalElement.textContent = total.toFixed(2);
         btnVaciar.style.display = carrito.length > 0 ? "block" : "none";
+
+        // AGREGADO: Actualizar el contador y mostrarlo si hay items
+        if (contadorElement) {
+            contadorElement.textContent = totalItems;
+            contadorElement.style.display = totalItems > 0 ? "inline-block" : "none";
+        }
     }
 }
 
 // ==============================================================================
-// Manejo de Eventos Global (clicks en botones de agregar/eliminar/vaciar)
+// Lógica para abrir/cerrar modal carrito
+// ==============================================================================
+
+const modalCarrito = document.getElementById('modal-carrito');
+const btnAbrirCarrito = document.getElementById('abrir-carrito');
+const btnCerrarCarrito = document.getElementById('cerrar-carrito');
+
+if(btnAbrirCarrito && modalCarrito && btnCerrarCarrito){
+    btnAbrirCarrito.addEventListener('click', () => {
+        modalCarrito.style.display = 'flex'; // Usamos flex para centrar
+    });
+
+    btnCerrarCarrito.addEventListener('click', () => {
+        modalCarrito.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if(e.target === modalCarrito){
+            modalCarrito.style.display = 'none';
+        }
+    });
+}
+
+// ==============================================================================
+// Manejo global de eventos para agregar, eliminar, vaciar y enviar WhatsApp
 // ==============================================================================
 
 document.addEventListener("click", (e) => {
-    // Agregar producto
+    // Agregar producto al carrito
     if (e.target.classList.contains("btn-agregar")) {
         const id = parseInt(e.target.dataset.id);
         const producto = productos.find(p => p.id === id);
@@ -84,7 +115,7 @@ document.addEventListener("click", (e) => {
         actualizarCarrito();
     }
 
-    // Eliminar producto
+    // Eliminar producto del carrito
     if (e.target.classList.contains("btn-eliminar")) {
         const id = parseInt(e.target.dataset.id);
         carrito = carrito.filter(item => item.id !== id);
@@ -97,7 +128,7 @@ document.addEventListener("click", (e) => {
         actualizarCarrito();
     }
 
-    // Enviar pedido por WhatsApp (desde el formulario de pedido si existe)
+    // Enviar pedido por WhatsApp desde modal carrito
     if (e.target.id === "enviar-whatsapp") {
         if (carrito.length === 0) {
             alert("Tu carrito está vacío.");
@@ -116,180 +147,19 @@ document.addEventListener("click", (e) => {
         const texto = `Hola, soy ${nombre} (${telefono}). Quiero hacer un pedido: ${mensajeItems}. Total: $${total}`;
         const whatsappURL = `https://wa.me/5493863431725?text=${encodeURIComponent(texto)}`;
         window.open(whatsappURL, "_blank");
-        document.querySelector("#form-pedido")?.reset(); // Reinicia el formulario después de enviar
+
+        document.querySelector("#form-pedido")?.reset();
+        carrito = [];
+        actualizarCarrito();
+        modalCarrito.style.display = 'none';
     }
 });
 
-
 // ==============================================================================
-// Lógica que se ejecuta cuando el DOM está completamente cargado
+// Inicialización al cargar el DOM
 // ==============================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Inicializar la visualización de productos y carrito (si están presentes en la página)
     mostrarProductos();
     actualizarCarrito();
-
-    // --- Lógica para Formularios de Contacto y Proveedor ---
-
-    // Formulario proveedor
-    const formProveedor = document.querySelector("#form-proveedor");
-    if (formProveedor) {
-        formProveedor.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nombre = document.querySelector("#nombre").value;
-            const email = document.querySelector("#email").value;
-            const telefono = document.querySelector("#telefono").value;
-            const mensaje = document.querySelector("#mensaje").value;
-            const texto = `Hola, soy ${nombre}, mi email es ${email} y teléfono ${telefono}. Quiero ofrecer productos: ${mensaje}`;
-            const whatsappURL = `https://wa.me/+5493863431725?text=${encodeURIComponent(texto)}`;
-            window.open(whatsappURL, "_blank");
-            formProveedor.reset(); // Reinicia el formulario
-        });
-    }
-
-    // Formulario contacto
-    const formContacto = document.querySelector("#form-contacto");
-    if (formContacto) {
-        formContacto.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nombre = document.querySelector("#nombre").value;
-            const telefono = document.querySelector("#telefono").value;
-            const mensaje = document.querySelector("#mensaje").value;
-            const texto = `Hola, soy ${nombre}, mi teléfono es ${telefono}. ${mensaje ? "Comentario: " + mensaje : ""}`;
-            const whatsappURL = `https://wa.me/+5493863431725?text=${encodeURIComponent(texto)}`;
-            window.open(whatsappURL, "_blank");
-            formContacto.reset(); // Reinicia el formulario
-        });
-    }
-
-    // ==============================================================================
-    // Lógica del Carrusel de Imágenes (Actualizada para múltiples ítems visibles)
-    // ==============================================================================
-
-    const carrusel = document.querySelector(".carrusel"); // Seleccionamos el contenedor desplazable
-    const slides = document.querySelectorAll(".slide");
-    const prevBtn = document.getElementById("prev");
-    const nextBtn = document.getElementById("next");
-
-    if (carrusel && slides.length > 0 && prevBtn && nextBtn) {
-        // Para asegurar que el carrusel se desplace por "unidad" de imagen visible
-        function getSlideScrollAmount() {
-            // Obtiene el ancho de la primera diapositiva y el gap (15px)
-            // Se asume que todas las diapositivas tienen el mismo ancho y gap
-            const slideWidth = slides[0].offsetWidth;
-            const gap = 15; // El gap definido en tu CSS
-            return slideWidth + gap;
-        }
-
-        // Navegación con botón anterior
-        prevBtn.addEventListener("click", () => {
-            const scrollAmount = getSlideScrollAmount();
-            carrusel.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
-
-            // Opcional: loop infinito para el carrusel
-            // if (carrusel.scrollLeft - scrollAmount < 0) {
-            //     carrusel.scrollLeft = carrusel.scrollWidth; // Ir al final
-            // } else {
-            //     carrusel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            // }
-        });
-
-        // Navegación con botón siguiente
-        nextBtn.addEventListener("click", () => {
-            const scrollAmount = getSlideScrollAmount();
-            carrusel.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-
-            // Opcional: loop infinito para el carrusel
-            // if (carrusel.scrollLeft + scrollAmount >= carrusel.scrollWidth - carrusel.offsetWidth) {
-            //     carrusel.scrollLeft = 0; // Ir al principio
-            // } else {
-            //     carrusel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            // }
-        });
-
-        // NOTA: Se ha eliminado el setInterval para auto-avance,
-        // ya que la navegación por múltiples ítems suele ser manual o requiere
-        // una lógica de auto-avance más sofisticada para grupos de elementos.
-    }
-
-    // ==============================================================================
-    // Lógica para Lightbox (Ampliar Imagen al Clic)
-    // ==============================================================================
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeButton = document.querySelector('.close-button');
-
-    // Aseguramos que los elementos del lightbox existan antes de añadir listeners
-    if (lightbox && lightboxImg && closeButton) {
-
-        // Abre el lightbox cuando se hace clic en una imagen del carrusel
-        slides.forEach(slide => {
-            slide.addEventListener('click', () => {
-                lightbox.classList.add('active'); // Activa la visualización de la modal
-                lightboxImg.src = slide.src; // Establece la fuente de la imagen en la modal
-            });
-        });
-
-        // Cierra el lightbox al hacer clic en el botón de cerrar
-        closeButton.addEventListener('click', () => {
-            lightbox.classList.remove('active'); // Desactiva la visualización de la modal
-        });
-
-        // Cierra el lightbox al hacer clic fuera de la imagen (en el fondo oscuro)
-        lightbox.addEventListener('click', (e) => {
-            // Si el clic fue directamente en el fondo de la lightbox (no en la imagen)
-            if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-            }
-        });
-
-        // Opcional: Cierra el lightbox al presionar la tecla ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                lightbox.classList.remove('active');
-            }
-        });
-    }
-}); // Cierre de document.addEventListener("DOMContentLoaded" ...
-
-// --- LÓGICA PARA EL SLIDER DE PROMOCIONES EN EL BANNER ---
-document.addEventListener('DOMContentLoaded', () => {
-    const promoSlides = document.querySelectorAll('.promo-slide');
-    let currentPromoIndex = 0;
-    let promoInterval;
-
-    function showPromoSlide(index) {
-        // Oculta todos los slides
-        promoSlides.forEach((slide) => {
-            slide.classList.remove('active');
-        });
-        // Muestra el slide actual
-        promoSlides[index].classList.add('active');
-    }
-
-    function nextPromoSlide() {
-        currentPromoIndex = (currentPromoIndex + 1) % promoSlides.length;
-        showPromoSlide(currentPromoIndex);
-    }
-
-    function startPromoSlider() {
-        // Asegurarse de que hay al menos un slide
-        if (promoSlides.length > 0) {
-            // Mostrar el primer slide al cargar
-            showPromoSlide(currentPromoIndex);
-            // Iniciar la rotación automática cada 5 segundos (5000ms)
-            promoInterval = setInterval(nextPromoSlide, 2000); 
-        }
-    }
-
-    // Iniciar el slider cuando la página esté completamente cargada
-    startPromoSlider();
 });
