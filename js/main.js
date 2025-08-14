@@ -1,5 +1,5 @@
 // ==============================================================================
-// Lógica para Productos y Carrito
+// PRODUCTOS Y CARRITO
 // ==============================================================================
 
 const productos = [
@@ -39,17 +39,17 @@ function mostrarProductos() {
     }
 }
 
-// Actualizar carrito y mostrar en modal
+// Actualizar carrito
 function actualizarCarrito() {
     const items = document.querySelector("#items-carrito");
     const totalElement = document.querySelector("#total");
     const btnVaciar = document.querySelector("#vaciar-carrito");
-    const contadorElement = document.querySelector("#contador-carrito"); // AGREGADO
+    const contadorElement = document.querySelector("#contador-carrito");
 
     if (items && totalElement && btnVaciar) {
         items.innerHTML = "";
         let total = 0;
-        let totalItems = 0; // AGREGADO
+        let totalItems = 0;
 
         carrito.forEach(item => {
             const li = document.createElement("li");
@@ -59,13 +59,12 @@ function actualizarCarrito() {
             `;
             items.appendChild(li);
             total += item.precio * item.cantidad;
-            totalItems += item.cantidad; // AGREGADO
+            totalItems += item.cantidad;
         });
 
         totalElement.textContent = total.toFixed(2);
         btnVaciar.style.display = carrito.length > 0 ? "block" : "none";
 
-        // AGREGADO: Actualizar el contador y mostrarlo si hay items
         if (contadorElement) {
             contadorElement.textContent = totalItems;
             contadorElement.style.display = totalItems > 0 ? "inline-block" : "none";
@@ -74,16 +73,16 @@ function actualizarCarrito() {
 }
 
 // ==============================================================================
-// Lógica para abrir/cerrar modal carrito
+// MODAL CARRITO
 // ==============================================================================
 
 const modalCarrito = document.getElementById('modal-carrito');
 const btnAbrirCarrito = document.getElementById('abrir-carrito');
 const btnCerrarCarrito = document.getElementById('cerrar-carrito');
 
-if(btnAbrirCarrito && modalCarrito && btnCerrarCarrito){
+if (btnAbrirCarrito && modalCarrito && btnCerrarCarrito) {
     btnAbrirCarrito.addEventListener('click', () => {
-        modalCarrito.style.display = 'flex'; // Usamos flex para centrar
+        modalCarrito.style.display = 'flex';
     });
 
     btnCerrarCarrito.addEventListener('click', () => {
@@ -91,18 +90,18 @@ if(btnAbrirCarrito && modalCarrito && btnCerrarCarrito){
     });
 
     window.addEventListener('click', (e) => {
-        if(e.target === modalCarrito){
+        if (e.target === modalCarrito) {
             modalCarrito.style.display = 'none';
         }
     });
 }
 
 // ==============================================================================
-// Manejo global de eventos para agregar, eliminar, vaciar y enviar WhatsApp
+// EVENTOS GLOBALES
 // ==============================================================================
 
 document.addEventListener("click", (e) => {
-    // Agregar producto al carrito
+    // Agregar producto
     if (e.target.classList.contains("btn-agregar")) {
         const id = parseInt(e.target.dataset.id);
         const producto = productos.find(p => p.id === id);
@@ -115,7 +114,7 @@ document.addEventListener("click", (e) => {
         actualizarCarrito();
     }
 
-    // Eliminar producto del carrito
+    // Eliminar producto
     if (e.target.classList.contains("btn-eliminar")) {
         const id = parseInt(e.target.dataset.id);
         carrito = carrito.filter(item => item.id !== id);
@@ -128,15 +127,15 @@ document.addEventListener("click", (e) => {
         actualizarCarrito();
     }
 
-    // Enviar pedido por WhatsApp desde modal carrito
+    // Enviar carrito por WhatsApp
     if (e.target.id === "enviar-whatsapp") {
         if (carrito.length === 0) {
             alert("Tu carrito está vacío.");
             return;
         }
 
-        const nombre = document.querySelector("#nombre")?.value || "Cliente";
-        const telefono = document.querySelector("#telefono")?.value || "Sin número";
+        const nombre = document.querySelector("#nombre_carrito")?.value || "Cliente";
+        const telefono = document.querySelector("#telefono_carrito")?.value || "Sin número";
 
         const mensajeItems = carrito.map(item =>
             `${item.nombre} x${item.cantidad}`
@@ -148,7 +147,6 @@ document.addEventListener("click", (e) => {
         const whatsappURL = `https://wa.me/5493863431725?text=${encodeURIComponent(texto)}`;
         window.open(whatsappURL, "_blank");
 
-        document.querySelector("#form-pedido")?.reset();
         carrito = [];
         actualizarCarrito();
         modalCarrito.style.display = 'none';
@@ -156,7 +154,56 @@ document.addEventListener("click", (e) => {
 });
 
 // ==============================================================================
-// Inicialización al cargar el DOM
+// FORMULARIO CONTACTO CLIENTES
+// ==============================================================================
+
+document.getElementById("form-contacto")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Usar IDs reales del HTML
+    const nombre = document.getElementById("nombre")?.value.trim();
+    const email = document.getElementById("email")?.value.trim();
+    const telefono = document.getElementById("telefono")?.value.trim();
+    const mensaje = document.getElementById("mensaje")?.value.trim();
+
+    if (!nombre || !email || !telefono || !mensaje) {
+        alert("Por favor, completá todos los campos.");
+        return;
+    }
+
+    const texto = `Hola, soy ${nombre} (${telefono}, ${email}). ${mensaje}`;
+    const whatsappURL = `https://wa.me/5493863431725?text=${encodeURIComponent(texto)}`;
+    window.open(whatsappURL, "_blank");
+
+    this.reset();
+});
+
+// ==============================================================================
+// FORMULARIO PROVEEDORES
+// ==============================================================================
+
+document.getElementById("form-proveedor")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre_proveedor")?.value.trim();
+    const email = document.getElementById("email_proveedor")?.value.trim();
+    const telefono = document.getElementById("telefono_proveedor")?.value.trim();
+    const mensaje = document.getElementById("mensaje_proveedor")?.value.trim();
+
+    if (!nombre || !email || !telefono || !mensaje) {
+        alert("Por favor, completá todos los campos.");
+        return;
+    }
+
+    const texto = `Hola, soy ${nombre} (${telefono}, ${email}). ${mensaje}`;
+    const whatsappURL = `https://wa.me/5493863431725?text=${encodeURIComponent(texto)}`;
+    window.open(whatsappURL, "_blank");
+
+    this.reset();
+});
+
+// ==============================================================================
+// INICIALIZACIÓN
 // ==============================================================================
 
 document.addEventListener("DOMContentLoaded", () => {

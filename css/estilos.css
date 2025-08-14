@@ -805,4 +805,46 @@ footer {
     .hero-content h5 {
       font-size: 0.9em;
     }
+}  
+
+@media (max-width: 768px) {
+    .menu-toggle {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white; /* Cambia si tu navbar es clara */
+    cursor: pointer;
+    display: block;
 }
+
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none; /* Ocultar en escritorio */
+    }
+}
+
+/* Menú oculto en móvil */
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2e7d32; /* o el color de tu navbar */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Cuando se abre */
+.menu.menu-abierto {
+    display: flex;
+}
+
+/* Submenús */
+.submenu {
+    display: none;
+    flex-direction: column;
+}
+
+.dropdown:hover .submenu {
+    display: flex;
+}
+
