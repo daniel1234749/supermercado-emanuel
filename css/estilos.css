@@ -16,11 +16,12 @@ body {
 
 /* LOGO */
 .logo {
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     height: auto;
 }
 
-/* NAVBAR (Estilos principales) */
+/* NAVBAR (Estilos principales - Vista de escritorio) */
 .navbar {
     position: sticky;
     top: 0;
@@ -28,8 +29,8 @@ body {
     background-color: #1B5E20;
     color: white;
     padding: 0.5rem 1rem;
-    display: flex; /* Contenedor flex para alinear los elementos */
-    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -46,13 +47,13 @@ body {
     color: white;
 }
 
+/* Menú de navegación (por defecto, para escritorio) */
 .menu {
     list-style: none;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     text-align: center;
-    /* Esto empuja el menú a la derecha del logo y deja espacio para el botón */
     margin-left: auto;
     margin-right: 1rem;
 }
@@ -67,6 +68,16 @@ body {
 .menu li a:hover {
     text-decoration: underline;
     color: #a5d6a7;
+}
+
+/* Botón de menú de hamburguesa (oculto por defecto en escritorio) */
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
 }
 
 /* DROPDOWN / SUBMENÚ */
@@ -113,6 +124,7 @@ body {
     color: white;
     padding: 0.8rem;
     text-align: center;
+    margin-top: 100px;
 }
 
 .hero-content {
@@ -129,25 +141,14 @@ body {
     font-size: 1.1rem;
 }
 
-/* CARRUSEL PRINCIPAL (SLIDER DE IMAGENES CENTRAL) */
+/* CARRUSEL PRINCIPAL */
 .carrusel-container {
     position: relative;
     max-width: 90%;
     margin: 2rem auto;
     overflow: hidden;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    height: 350px;
-}
-
-/* CARRUSEL PRINCIPAL (SLIDER DE IMAGENES CENTRAL) */
-.carrusel-container {
-    position: relative;
-    max-width: 90%;
-    margin: 2rem auto;
-    overflow: hidden; /* Esto es clave para ocultar las imágenes que no están en la vista */
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     height: 350px;
 }
 
@@ -157,8 +158,8 @@ body {
     padding: 0;
     height: 100%;
     align-items: center;
-    scroll-behavior: smooth; /* Desplazamiento suave */
-    overflow-x: hidden; /* Oculta la barra de scroll */
+    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 .slide {
@@ -429,7 +430,7 @@ footer {
     cursor: pointer;
     font-weight: bold;
     z-index: 1000;
-    position: relative; /* <-- AGREGADO */
+    position: relative;
 }
 
 .btn-carrito:hover {
@@ -446,19 +447,18 @@ footer {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
 }
 
-/* Estilo para el contenido dentro de la modal */
 .modal-content {
     background-color: #fff;
     border-radius: 8px;
     width: 90%;
     max-width: 400px;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
     max-height: 80vh;
     overflow-y: auto;
@@ -526,146 +526,6 @@ footer {
     color: white;
 }
 
-
-/* RESPONSIVE DESIGN - MEDIA QUERIES */
-
-/* Ajustes responsivos para la NAVBAR */
-@media (max-width: 768px) {
-    /* Aquí tenías un código incorrecto que he eliminado */
-
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding-bottom: 1rem;
-    }
-
-    .logo-titulo {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .menu {
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-        margin-left: 0; /* Ajuste para móviles */
-        margin-right: 0;
-    }
-
-    .menu li {
-        width: 100%;
-    }
-    
-    .btn-carrito {
-        /* Ajuste para móviles: se integra mejor en la columna */
-        margin-top: 1rem;
-    }
-
-
-    .menu li a {
-        padding: 8px 0;
-        background-color: rgba(46, 125, 50, 0.9);
-        border-radius: 4px;
-    }
-
-    .dropdown .submenu {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        border: none;
-        border-top: 1px solid #388e3c;
-        border-radius: 0;
-    }
-
-    .submenu li a {
-        padding-left: 30px;
-        background-color: rgba(56, 142, 60, 0.95);
-    }
-}    
-
-//* --- ESTILO PARA EL BANNER DE PROMOCIONES ROTATIVAS (SLIDER) --- */
-.promo-banner {
-    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-    padding: 15px 0;
-    text-align: center;
-    border-bottom: 3px solid #d0d0d0;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-    position: relative;
-    overflow: hidden;
-    height: auto; /* <-- La clave para que no se vea chato */
-    margin-top: 70px;
-}
-
-.promo-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255,255,255,0.05),
-        rgba(255,255,255,0.05) 10px,
-        transparent 10px,
-        transparent 20px
-    );
-    opacity: 0.8;
-    z-index: 1;
-}
-
-.promo-banner .promo-slides-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.promo-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-decoration: none;
-    color: inherit;
-    z-index: 2;
-}
-
-.promo-slide.active {
-    opacity: 1;
-}
-
-.promo-slide .banner-img {
-    max-width: 200px;
-    height: auto;
-    border-radius: 12px;
-    border: 4px solid #ffffff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-}
-
-.promo-slide p {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #8B0000;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin: 0;
-    padding: 0 20px;
-    line-height: 1.3;
-}
-
 /* --- ESTILO PARA EL BANNER DE PROMOCIONES ROTATIVAS (SLIDER) --- */
 .promo-banner {
     background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
@@ -675,176 +535,61 @@ footer {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
     position: relative;
-    height: auto; /* <-- Eliminado height fijo para que se ajuste al contenido */
-    overflow: visible; /* <-- Eliminado overflow: hidden para evitar que oculte el contenido */
-}
-
-.promo-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255,255,255,0.05),
-        rgba(255,255,255,0.05) 10px,
-        transparent 10px,
-        transparent 20px
-    );
-    opacity: 0.8;
-    z-index: 1;
-}
-
-.promo-banner .promo-slides-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.promo-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-decoration: none;
-    color: inherit;
-    z-index: 2;
-}
-
-.promo-slide.active {
-    opacity: 1;
-}
-
-.promo-slide .banner-img {
-    max-width: 200px;
     height: auto;
-    border-radius: 12px;
-    border: 4px solid #ffffff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-}
-
-.promo-slide p {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #8B0000;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin: 0;
-    padding: 0 20px;
-    line-height: 1.3;
-}
-
-/* HERO SECTION */
-.hero {
-    background: linear-gradient(to right, #0b8421, #333f36);
-    color: white;
-    padding: 0.8rem;
-    text-align: center;
-    margin-top: 100px; /* <-- Ajustado el margen para dejar espacio al nav sticky */
-}
-
-.hero-content {
-    max-width: 900px;
-    margin: 0 auto;
-}
-.hero-content h3 {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
-}
-.hero-content h5 {
-  font-size: 1.1rem;
-}
-.hero-content p {
-  font-size: 1.1rem;
-}
-
-/* Responsive para el banner de promociones (SLIDER) */
-@media (max-width: 768px) {
-    .promo-banner {
-        padding: 10px 0;
-        margin-bottom: 25px;
-        height: auto; /* <-- Autoajuste */
-        overflow: visible;
-    }
-    .promo-slide {
-        flex-direction: column;
-        gap: 15px;
-        justify-content: center;
-    }
-    .promo-slide p {
-        font-size: 1.2em;
-        padding: 0 15px;
-        text-align: center;
-    }
-    .promo-slide .banner-img {
-        max-width: 100px;
-        max-height: 80px;
-        object-fit: contain;
-    }
-
-    /* Ajuste en el hero para móviles */
-    .hero {
-        margin-top: 80px; /* <-- Menos margen para móviles */
-        padding: 0.6rem;
-    }
-    .hero-content h3 {
-      font-size: 1.8rem;
-    }
-    .hero-content h5 {
-      font-size: 0.9em;
-    }
 }  
 
-@media (max-width: 768px) {
-    .menu-toggle {
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: white; /* Cambia si tu navbar es clara */
-    cursor: pointer;
-    display: block;
-}
+/* =========================
+   HOTFIX NAVBAR / HAMBURGUESA
+   Pegar al FINAL del CSS
+   ========================= */
 
-@media (min-width: 768px) {
-    .menu-toggle {
-        display: none; /* Ocultar en escritorio */
-    }
-}
+/* Estado base: ESCRITORIO (>=769px) */
+.menu-toggle{ display:none; }           /* no mostrar el ícono */
+.menu{ display:flex; }                  /* menú visible */
+.submenu{ position:absolute; display:none; }
+.dropdown:hover .submenu{ display:block; }
 
-/* Menú oculto en móvil */
-.menu {
-    display: none;
+/* MÓVIL / TABLET (<=768px) */
+@media (max-width: 768px){
+  .navbar{
     flex-direction: column;
-    background-color: #2e7d32; /* o el color de tu navbar */
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
+    align-items: center;
+    text-align: center;
+    padding-bottom: .75rem;
+  }
 
-/* Cuando se abre */
-.menu.menu-abierto {
-    display: flex;
-}
+  .logo-titulo{ flex-direction: column; gap: .5rem; margin-bottom: .5rem; }
 
-/* Submenús */
-.submenu {
-    display: none;
-    flex-direction: column;
-}
+  .menu-toggle{
+    display:block;           /* mostrar ícono solo en mobile */
+    background:none;
+    border:none;
+    font-size:2rem;
+    color:#fff;
+    cursor:pointer;
+  }
 
-.dropdown:hover .submenu {
-    display: flex;
-}
+  .menu{
+    display:none;            /* oculto por defecto en mobile */
+    flex-direction:column;
+    width:100%;
+    background-color:#2e7d32;
+    margin:0;
+    padding:.5rem 0;
+    list-style:none;
+  }
+  .menu.menu-abierto{ display:flex; }   /* se abre con JS */
+
+  /* Submenús en mobile: NO por hover, sí por clase .submenu-abierto */
+  .dropdown:hover .submenu{ display:none; }
+  .submenu{
+    position:static;
+    display:none;
+    flex-direction:column;
+    border:0;
+    box-shadow:none;
+  }
+  .submenu.submenu-abierto{ display:flex; }
+}   
+
 
